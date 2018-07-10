@@ -1,0 +1,10 @@
+* clhear *
+
+Usage: clhear <room> all/swears/nothing
+
+This sets what part of the conversation in the clones room the clone will
+display to you. "all" makes it show all that is being said and emoted , 
+"swears" will make it just report swearing (based on the swear_words array
+in nuts310.h) and nothing will force it to ignore everything.
+
+See: clone, destroy, allclones, myclones, clsay, switch

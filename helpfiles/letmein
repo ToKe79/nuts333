@@ -1,0 +1,10 @@
+
+* letmein *
+
+Usage: letmein <room>
+
+This sends a message to people in a private room letting know that you
+wish to enter. Its then up to them to invite you in.
+
+See: public, private, invite
+

@@ -1,0 +1,12 @@
+
+* inphr *
+
+Usage: inphr [<message>]
+
+This sets the message that is displayed following your name when you enter
+a room. eg if your name is fred and you set it to "enters fast" other people
+will see "Fred enters fast" when you enter a room. If you omit the message
+it shows you your current message.
+
+See: outphr, desc
+

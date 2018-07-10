@@ -1,0 +1,12 @@
+
+* minlogin *
+
+Usage: minlogin NONE/<user level>
+
+This sets the minimum login level of a user that can log in. This directly
+affects the main port but only affects the wiz port if it is set higher than
+the wizport login level. If set to NONE then anyone can log in and new users
+can be created, if set to NEW no new accounts can be created but users of
+level NEW can still log in. If set to USER then only users of level USER and
+above can log in and so on...
+

@@ -1,0 +1,13 @@
+
+* wizshout *
+
+Usage: wizshout [<superuser level>] <message>
+
+This command allows superusers to shout to various superuser levels though they
+can only specifically shout to levels equal or less that their own. Current
+levels supported are WIZ, ARCH and GOD. If no level is specified it defaults
+to WIZ which means that all superusers will here it. If for instance the level
+is specified as GOD then only users of level GOD will see the message.
+
+See: shout
+

@@ -1,0 +1,11 @@
+
+* switch *
+
+Usage: switch <room>
+
+This allows you to swap places with one of your clones in the given room.
+It saves you destroying the current clone, creating another in your current
+room then moving yourself to the old clones room.
+
+See: clone, destroy, myclones, allclones, csay, chear
+

@@ -1,0 +1,10 @@
+
+* listbans *
+
+Usage: listbans sites/users/swears
+
+This will list all the sites or all the users currently banned from logging
+in. Also it can list the currently banned swear words.
+
+See: ban, unban
+

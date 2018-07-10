@@ -1,0 +1,10 @@
+
+* examine *
+
+Usage: examine <user>
+
+This commands shows you the users profile and various usefull statistics
+relating to his current or most recent login.
+
+See: entpro
+

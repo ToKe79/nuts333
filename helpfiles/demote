@@ -1,0 +1,10 @@
+
+* demote *
+
+Usage: demote <user>
+
+This will demote a user to the next level down from the one he is currently
+at. You can only demote a user of a lower level than yourself.
+
+See: promote
+

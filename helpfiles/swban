@@ -1,0 +1,8 @@
+
+* swban *
+
+This toggles a ban on swearing on and off. Swear words are hard coded into
+the .h file thet comes with the software in the swear_words[] array.
+Any user trying to say, emote or shout one of these words will be prevented
+from doing do.
+

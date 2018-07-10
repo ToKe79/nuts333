@@ -1,0 +1,10 @@
+
+* delete *
+
+Usage: delete <user>
+
+This will delete a user on the system but they cannot be logged in at the time
+so if someone is annoying you .kill them first *then* delete them. Using this
+command can make you seriously unpopular so you'd better get your facts right
+about someone before you delete them :)
+

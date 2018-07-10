@@ -1,0 +1,14 @@
+
+* afk *
+
+Usage: afk [lock] [<message>]
+
+This command allows you to set yourself to "away from keyboard" which 
+shows up when people "look" at the room and you will pronounced afk if
+they try to tell you or pemote something to you. Just press return to
+reset unless you have specified the "lock" option will lock your session
+and prevent someone using it while you away from the terminal. Enter your
+talker password and press return to unlock it. You can leave an optional
+message when you go afk which will be sent to anyone trying to .tell or
+.pemote to you.
+

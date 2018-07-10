@@ -1,0 +1,13 @@
+
+* muzzle *
+
+Usage: muzzle <user>
+
+Muzzles a user which prevents them speaking, shouting, emoting and mailing
+other people. The muzzle levels are based upon the user level of whoever
+muzzled the user. If a user is muzzled by a wizard for instance he can be
+unmuzzled by and archwiz or a god, if however he is muzzled by a god only
+another god can unmuzzle him.
+
+See: unmuzzle
+

@@ -1,0 +1,44 @@
+
+* colour *
+
+This command toggles colour on and off. The colour itself is controlled by
+embedded tags in text strings which all begin with a '~', eg /~FG.
+They are the following...
+
+Control tags...
+
+  /~RS : Rest terminal to default state
+  /~RV : ~RVReverse video
+  /~OL : ~OLBold
+  /~LI : ~LIBlink/flash text. This only works on some terminals, others may
+        ~LIsimply display it as bold.
+  /~UL : ~ULUnderline text. As with blink this doesn't work on all terminals,
+	    ~ULsome just display it as bold.
+
+Foreground colour tags...
+
+  /~FK : Foreground black
+  /~FM : ~FMMagenta/purple
+  /~FR : ~FRRed
+  /~FY : ~FYYellow/orange
+  /~FG : ~FGGreen
+  /~FB : ~FBBlue
+  /~FT : ~FTTurquoise/bright blue
+  /~FW : White
+
+Background colour tags...
+
+  /~BK : Background black
+  /~BM : ~BMMagenta/purple
+  /~BR : ~BRRed
+  /~BY : ~BYYellow/orange
+  /~BG : ~BGGreen
+  /~BB : ~BBBlue
+  /~BT : ~BTTurquoise/bright blue
+  /~BW : White
+
+So this: "/~FG/~BB/~LIhello world" would produce ~FG~BB~LIhello world
+
+To display the colour tags as themselves without them producing a colour
+prepend the ~ with a / , eg //~FG
+

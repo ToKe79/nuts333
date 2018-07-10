@@ -1,0 +1,10 @@
+
+* ban *
+
+Usage: ban site/user <site/user name>
+
+This command will ban either a site or a user, the names of which are written
+to the files in the SITEBAN and USERBAN macros.
+
+See: unban, listbans
+

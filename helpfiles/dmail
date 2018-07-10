@@ -1,0 +1,9 @@
+
+* dmail *
+
+Usage: dmail <amount>/all
+
+Deletes your mail messages from your mailbox.
+
+See: smail, rmail, from
+

@@ -1,0 +1,11 @@
+
+* move *
+
+Usage: move <user> <room>/here
+
+Moves a user directly to the chosen room. If the "here" option is used then
+he is moved to the same room as whoever invoked the command. The user is
+not moved if he is already in the chosen room.
+
+See: go
+

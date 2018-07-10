@@ -1,0 +1,30 @@
+# This is the 2nd config file for you to use with a copy of the talker
+# to get 2 talkers linked together. A lot of parameters are missing here
+# in the INIT section to demonstrate the fact that you can leave them as
+# the software defaults.
+
+INIT:
+verification      fred123
+mainport          5000 
+wizport           5001
+linkport          5002
+logging           YES
+prompt_def        ON
+mesg_life         3
+min_private       2
+ignore_mp_level   WIZ
+rem_user_maxlevel GOD
+rem_user_deflevel USER
+wizport_level     ARCH
+gatecrash_level   ARCH
+
+ROOMS:
+dr drive    ha        PUB  CONNECT talker1
+ha hallway  dr,co,wz  PUB  
+wz wizroom  ha        PRIV
+co corridor ha,lg     
+lg lounge   co        BOTH ACCEPT
+
+# Link back to talker 1
+SITES:
+talker1       localhost 7002         bloggs456

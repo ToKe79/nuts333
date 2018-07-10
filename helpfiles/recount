@@ -1,0 +1,6 @@
+
+* recount *
+
+This recounts the number of messages on all the boards in case they have been
+edited manually and the count is wrong.
+

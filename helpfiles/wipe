@@ -1,0 +1,11 @@
+
+* wipe *
+
+Usage: wipe <number of messages from top>/all
+
+This wipes the message board. If you give a number then it wipes that
+many messages from the top of the board where the oldest ones will be.
+If you specify "all" it wipes everything.
+
+See: read, write, search
+

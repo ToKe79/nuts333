@@ -1,0 +1,11 @@
+
+* fix *
+
+Usage: fix [<room>]
+
+This will fix a rooms access whether it is public or private so that it
+cannot be changed using the public or private commands. If the room is left
+out then the users current room is used.
+
+See: unfix, public, private
+

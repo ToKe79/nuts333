@@ -1,0 +1,11 @@
+
+* unfix *
+
+Usage: unfix [<room>]
+
+This will unfix a rooms access so that it can then be set to public or private
+using the appropriate commands. If the room is ommited then the users current
+room is used.
+
+See: fix, public, private
+

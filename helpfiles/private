@@ -1,0 +1,11 @@
+
+* private *
+
+Usage: private [<room>]
+
+This will set a room to private providing there are enough users in it and
+also if it is not fixed to public. The <room> option can only be used by
+users of gatecrash_level and higher when the above restrictions are ignored.
+
+See: public, invite, letmein, fix, unfix
+

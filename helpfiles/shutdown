@@ -1,0 +1,10 @@
+
+* shutdown *
+
+Usage: shutdown [<secs>/cancel]
+
+This will shutdown the talker, either immediately or after "secs" seconds.
+The cancel option will cancel any timed shutdown.
+
+See: reboot
+

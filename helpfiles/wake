@@ -1,0 +1,8 @@
+
+* wake *
+
+Usage: wake <user>
+
+This sends a message and a beeping noise to the users terminal hopefully
+attracting his attention.
+

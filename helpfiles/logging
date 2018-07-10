@@ -1,0 +1,5 @@
+
+* logging *
+
+This is a toggle command that switches logging to the syslog on and off.
+

@@ -1,0 +1,10 @@
+
+* read *
+
+usage: read [<room>]
+
+This displays the message board of the given room. If no room is given it
+defaults to your current room.
+
+See: write, search, wipe
+

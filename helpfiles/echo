@@ -1,0 +1,9 @@
+
+* echo *
+
+Usage: echo <text>
+
+This is more a fun command than anything really usefull. It simply echoes
+whatever you write as the text into the room without other users see who
+said it.
+

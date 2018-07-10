@@ -1,0 +1,9 @@
+* clsay *
+
+Usage: clsay <room>
+
+Will make one of your clones in the given room speak. If you see something
+nasty being said in the clones room its an alternative to shouting, telling
+or actually going to the room to admonish the miscreant.
+
+See: clone, destroy, allclones, myclones, clhear, switch

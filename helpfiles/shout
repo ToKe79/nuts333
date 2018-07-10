@@ -1,0 +1,9 @@
+
+* shout *
+
+Usage: shout <message>
+
+This allows you to "shout" to the whole talker. Shortcut is '!'.
+
+See: say, tell
+

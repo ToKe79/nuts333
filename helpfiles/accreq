@@ -1,0 +1,9 @@
+
+* accreq *
+
+Usage: accreq <email address>
+
+This command is for new users who wish to be promoted to level USER. The
+idea is that they give their email address so the sysop can mail them to
+confirm their identity.
+

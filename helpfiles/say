@@ -1,0 +1,10 @@
+
+* say *
+
+Usage: say <message>
+
+This command is only needed when in COMMAND mode, since in SPEECH mode
+everything you type that isn't a command is interpreted as speech.
+
+See: shout, tell
+

@@ -1,0 +1,10 @@
+
+* unmuzzle *
+
+Usage: unmuzzle <user>
+
+Removes a muzzle from a user. This will only work if the user was muzzled
+by someone of equal or lesser level that yourself.
+
+See: muzzle
+

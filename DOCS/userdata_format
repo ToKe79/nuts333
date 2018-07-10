@@ -1,0 +1,25 @@
+*** Format of the user data file ***
+
+This is a short description of the layout of the file in case you need to hack
+one manually eg to promote or demote someone.
+All times are in seconds.
+
+Line
+1: encrypted password
+2: <last login time> <total login time> <time last logged in for> 
+   <last time he read his mail> <level> <prompt on/off> <muzzle level> 
+   <charmode echo on/off> <command mode on/off> <colour on/off>
+3: last login site
+4: description
+5: enter into room phrase
+6: exit from room phrase
+
+eg
+
+NUKyNCCLvgLH.
+824318419 800 300 825957467 4 1 0 0 1 1
+osiris
+the newbie
+enters.
+goes
+

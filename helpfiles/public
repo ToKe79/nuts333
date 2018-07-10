@@ -1,0 +1,11 @@
+
+* public *
+
+Usage: public [<room>]
+
+This will set a private room back to public as long as it is not fixed to
+private. The <room> option can only be used by users of gatecrash_level and
+above.
+
+See: private, invite, letmein, fix, unfix
+

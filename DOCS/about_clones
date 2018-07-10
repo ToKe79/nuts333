@@ -1,0 +1,18 @@
+*** About clones ***
+
+Clones allow archwizards and gods (as currently set up) to create copies
+of themselves in rooms and listen in to and add to the conversation in that
+room which will allow them to monitor the proceedings whilst at the same time
+being elsewhere , perhaps in a private room having their own private
+conversation. The clone commands are fairly straightforward but I will explain
+the following ones:
+
+switch - switches you between your current object and one of your clone
+	    objects.
+
+clsay - makes a clone say something
+
+clhear - clones send what they hear to their owner but this can be set to 
+	    return either all the conversation in their room, only that with
+	    swearing or nothing at all (just to be a presence there).
+

@@ -1,0 +1,13 @@
+
+* emote *
+
+Usage: emote <text>
+
+Emotes allow you to express emotions. A example would be "Fred feels sad".
+If you were logged in as Fred you would enter ".emote feels sad" and your
+user name will be prepended to the front. A semi-colon can be used as a
+short cut for this command so "; feels sad" would have the same affect as
+the above. The result is seen in the room you are currently in.
+
+See: semote, pemote
+

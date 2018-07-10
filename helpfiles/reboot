@@ -1,0 +1,10 @@
+
+* reboot *
+
+Usage: reboot [<secs>/cancel]
+
+This will reboot the talker, either immediately or after "secs" seconds.
+The cancel option will cancel any timed reboot.
+
+See: shutdown
+

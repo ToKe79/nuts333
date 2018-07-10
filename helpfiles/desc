@@ -1,0 +1,11 @@
+
+* desc *
+
+Usage: desc [<description>]
+
+This sets the message your description , ie that which follows your name
+when other people view the room or use the "who" command etc. If you omit the
+description it displays your current one.
+
+See: outphr, inphr
+

@@ -1,0 +1,12 @@
+
+* go *
+
+Usage: go <room/service> [<password on other talker>]
+
+This command moves you to another room which must be linked to your current
+one (unless you are a wizard or higher). If the talker is linked to another
+you can type the service name to move to the other talker if your password
+is the same on the other talker. If it isn't you must supply it as above.
+
+See: move
+

@@ -1,0 +1,9 @@
+
+* netdata *
+
+This command shows whether any data is being recieved via the net connections.
+It takes no arguments. The data in this case is either mail or a message which
+is the passing of text (eg a room description) to the remote user.
+
+See: netstat
+
