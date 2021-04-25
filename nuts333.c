@@ -1204,8 +1204,8 @@ for(rm=room_first;rm!=NULL;rm=rm->next) {
 	fflush(stdout);
 	if ((ret=connect_to_site(nl))) {
 		if (ret==1) {
-			printf("%s.\n",sys_errlist[errno]);
-			sprintf(text,"NETLINK: Failed to connect to %s: %s.\n",nl->service,sys_errlist[errno]);
+			printf("%s.\n",strerror(errno));
+			sprintf(text,"NETLINK: Failed to connect to %s: %s.\n",nl->service,strerror(errno));
 			}
 		else {
 			printf("Unknown hostname.\n");
@@ -4039,7 +4039,7 @@ if (reboot) {
 	   prog has been running this won't work */
 	execvp(progname,args);
 	/* If we get this far it hasn't worked */
-	sprintf(text,"*** REBOOT FAILED %s: %s ***\n\n",long_date(1),sys_errlist[errno]);
+	sprintf(text,"*** REBOOT FAILED %s: %s ***\n\n",long_date(1),strerror(errno));
 	write_syslog(text,0);
 	exit(12);
 	}
@@ -5806,7 +5806,7 @@ tmperr=errno; /* On Linux errno seems to be reset between here and sprintf */
 write_user(user,"~FRConnect failed: ");
 write_syslog("NETLINK: Connection attempt failed: ",1);
 if (ret==1) {
-	sprintf(text,"%s.\n",sys_errlist[tmperr]);
+	sprintf(text,"%s.\n",strerror(tmperr));
 	write_user(user,text);
 	write_syslog(text,0);
 	return;
