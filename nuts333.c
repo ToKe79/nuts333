@@ -2614,7 +2614,7 @@ return dstr;
 
 
 /*** Clear the review buffer in the room ***/
-clear_revbuff(rm)
+void clear_revbuff(rm)
 RM_OBJECT rm;
 {
 int c;
@@ -2634,7 +2634,7 @@ for(i=0;i<5;++i) write_user(user,"\n\n\n\n\n\n\n\n\n\n");
 
 
 /*** Convert string to upper case ***/
-strtoupper(str)
+void strtoupper(str)
 char *str;
 {
 while(*str) {  *str=toupper(*str);  str++; }
@@ -2650,7 +2650,7 @@ while(*str) {  *str=tolower(*str);  str++; }
 
 
 /*** Returns 1 if string is a positive number ***/
-isnumber(str)
+int isnumber(str)
 char *str;
 {
 while(*str) if (!isdigit(*str++)) return 0;
@@ -2742,7 +2742,7 @@ return user;
 
 
 /*** Destruct an object. ***/
-destruct_user(user)
+void destruct_user(user)
 UR_OBJECT user;
 {
 /* Remove from linked list */
@@ -2840,7 +2840,7 @@ return nl;
 
 
 /*** Destruct a netlink (usually a closed incoming one). ***/
-destruct_netlink(nl)
+void destruct_netlink(nl)
 NL_OBJECT nl;
 {
 if (nl!=nl_first) {
@@ -2858,7 +2858,7 @@ free(nl);
 
 
 /*** Destroy all clones belonging to given user ***/
-destroy_user_clones(user)
+void destroy_user_clones(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -3065,7 +3065,7 @@ nl->buffer[0]='\0';
 
 
 /*** Deal with user being transfered over from remote site ***/
-nl_transfer(nl,name,pass,lev,inpstr)
+void nl_transfer(nl,name,pass,lev,inpstr)
 NL_OBJECT nl;
 char *name,*pass,*inpstr;
 int lev;
@@ -3157,7 +3157,7 @@ write_sock(nl->socket,text);
 		
 
 /*** User is leaving this system ***/
-nl_release(nl,name)
+void nl_release(nl,name)
 NL_OBJECT nl;
 char *name;
 {
@@ -3179,7 +3179,7 @@ write_syslog(text,1);
 
 
 /*** Remote user performs an action on this system ***/
-nl_action(nl,name,inpstr)
+void nl_action(nl,name,inpstr)
 NL_OBJECT nl;
 char *name,*inpstr;
 {
@@ -3226,7 +3226,7 @@ if (!u->misc_op) prompt(u);
 
 
 /*** Grant received from remote system ***/
-nl_granted(nl,name)
+void nl_granted(nl,name)
 NL_OBJECT nl;
 char *name;
 {
@@ -3277,7 +3277,7 @@ write_sock(nl->socket,text);
 
 
 /*** Deny received from remote system ***/
-nl_denied(nl,name,inpstr)
+void nl_denied(nl,name,inpstr)
 NL_OBJECT nl;
 char *name,*inpstr;
 {
@@ -3325,7 +3325,7 @@ u->pot_netlink=NULL;
 
 
 /*** Text received to display to a user on here ***/
-nl_mesg(nl,name)
+void nl_mesg(nl,name)
 NL_OBJECT nl;
 char *name;
 {
@@ -3342,7 +3342,7 @@ nl->mesg_user=u;
 
 
 /*** Remote system asking for prompt to be displayed ***/
-nl_prompt(nl,name)
+void nl_prompt(nl,name)
 NL_OBJECT nl;
 char *name;
 {
@@ -3363,7 +3363,7 @@ prompt(u);
 
 
 /*** Verification received from remote site ***/
-nl_verification(nl,w2,w3,com)
+void nl_verification(nl,w2,w3,com)
 NL_OBJECT nl;
 char *w2,*w3;
 int com;
@@ -3440,7 +3440,7 @@ shutdown_netlink(nl);
 /* Remote site only sends REMVD (removed) notification if user on remote site 
    tries to .go back to his home site or user is booted off. Home site doesn't
    bother sending reply since remote site will remove user no matter what. */
-nl_removed(nl,name)
+void nl_removed(nl,name)
 NL_OBJECT nl;
 char *name;
 {
@@ -3471,7 +3471,7 @@ prompt(u);
 
 
 /*** Got an error back from site, deal with it ***/
-nl_error(nl)
+void nl_error(nl)
 NL_OBJECT nl;
 {
 if (nl->mesg_user!=NULL) nl->mesg_user=NULL;
@@ -3485,7 +3485,7 @@ write_syslog(text,1);
 
 /*** Does user exist? This is a question sent by a remote mailer to
      verifiy mail id's. ***/
-nl_checkexist(nl,to,from)
+void nl_checkexist(nl,to,from)
 NL_OBJECT nl;
 char *to,*from;
 {
@@ -3505,7 +3505,7 @@ write_sock(nl->socket,text);
 
 
 /*** Remote user doesnt exist ***/
-nl_user_notexist(nl,to,from)
+void nl_user_notexist(nl,to,from)
 NL_OBJECT nl;
 char *to,*from;
 {
@@ -3527,7 +3527,7 @@ unlink(filename);
 
 
 /*** Remote users exists, send him some mail ***/
-nl_user_exist(nl,to,from)
+void nl_user_exist(nl,to,from)
 NL_OBJECT nl;
 char *to,*from;
 {
@@ -3561,7 +3561,7 @@ unlink(filename);
 
 
 /*** Got some mail coming in ***/
-nl_mail(nl,to,from)
+void nl_mail(nl,to,from)
 NL_OBJECT nl;
 char *to,*from;
 {
@@ -3583,7 +3583,7 @@ strcpy(nl->mail_from,from);
 
 
 /*** End of mail message being sent from remote site ***/
-nl_endmail(nl)
+void nl_endmail(nl)
 NL_OBJECT nl;
 {
 FILE *infp,*outfp;
@@ -3636,7 +3636,7 @@ unlink(mailfile);
 
 
 /*** An error occured at remote site ***/
-nl_mailerror(nl,to,from)
+void nl_mailerror(nl,to,from)
 NL_OBJECT nl;
 char *to,*from;
 {
@@ -3654,7 +3654,7 @@ else {
 
 
 /*** Send statistics of this server to requesting user on remote site ***/
-nl_rstat(nl,to)
+void nl_rstat(nl,to)
 NL_OBJECT nl;
 char *to;
 {
@@ -3929,7 +3929,7 @@ switch(com_num) {
 
 
 /*** Display details of room ***/
-look(user)
+void look(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -3996,7 +3996,7 @@ write_user(user,"No topic has been set yet.\n");
 
 
 /*** Switch between command and speech mode ***/
-toggle_mode(user)
+void toggle_mode(user)
 UR_OBJECT user;
 {
 if (user->command_mode) {
@@ -4009,7 +4009,7 @@ user->command_mode=1;
 
 
 /*** Shutdown the talker ***/
-talker_shutdown(user,str,reboot)
+void talker_shutdown(user,str,reboot)
 UR_OBJECT user;
 char *str;
 int reboot;
@@ -4091,7 +4091,7 @@ record(user->room,text);
 
 
 /*** Shout something ***/
-shout(user,inpstr)
+void shout(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4115,7 +4115,7 @@ write_room_except(NULL,text,user);
 
 
 /*** Tell another user something ***/
-tell(user,inpstr)
+void tell(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4173,7 +4173,7 @@ record_tell(u,text);
 
 
 /*** Emote something ***/
-emote(user,inpstr)
+void emote(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4197,7 +4197,7 @@ record(user->room,text);
 
 
 /*** Do a shout emote ***/
-semote(user,inpstr)
+void semote(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4217,7 +4217,7 @@ write_room(NULL,text);
 
 
 /*** Do a private emote ***/
-pemote(user,inpstr)
+void pemote(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4272,7 +4272,7 @@ record_tell(u,text);
 
 
 /*** Echo something to screen ***/
-echo(user,inpstr)
+void echo(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4292,7 +4292,7 @@ record(user->room,text);
 
 
 /*** Move to another room ***/
-go(user)
+void go(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -4396,7 +4396,7 @@ move_user(user,rm,1);
 
 
 /*** Called by go() and move() ***/
-move_user(user,rm,teleport)
+void move_user(user,rm,teleport)
 UR_OBJECT user;
 RM_OBJECT rm;
 int teleport;
@@ -4450,7 +4450,7 @@ reset_access(old_room);
 
 
 /*** Switch ignoring all on and off ***/
-toggle_ignall(user)
+void toggle_ignall(user)
 UR_OBJECT user;
 {
 if (!user->ignall) {
@@ -4468,7 +4468,7 @@ user->ignall=0;
 
 
 /*** Switch prompt on and off ***/
-toggle_prompt(user)
+void toggle_prompt(user)
 UR_OBJECT user;
 {
 if (user->prompt) {
@@ -4481,7 +4481,7 @@ user->prompt=1;
 
 
 /*** Set user description ***/
-set_desc(user,inpstr)
+void set_desc(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4502,7 +4502,7 @@ write_user(user,"Description set.\n");
 
 
 /*** Set in and out phrases ***/
-set_iophrase(user,inpstr)
+void set_iophrase(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4530,7 +4530,7 @@ write_user(user,"Out phrase set.\n");
 
 
 /*** Set rooms to public or private ***/
-set_room_access(user)
+void set_room_access(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -4603,7 +4603,7 @@ clear_revbuff(rm);
 
 
 /*** Ask to be let into a private room ***/
-letmein(user)
+void letmein(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -4642,7 +4642,7 @@ write_room(rm,text);
 
 
 /*** Invite a user into a private room ***/
-invite(user)
+void invite(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -4684,7 +4684,7 @@ u->invite_room=rm;
 
 
 /*** Set the room topic ***/
-set_topic(user,inpstr)
+void set_topic(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4713,7 +4713,7 @@ strcpy(rm->topic,inpstr);
 
 
 /*** Wizard moves a user to another room ***/
-move(user)
+void move(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -4759,7 +4759,7 @@ prompt(u);
 
 
 /*** Broadcast an important message ***/
-bcast(user,inpstr)
+void bcast(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4779,7 +4779,7 @@ write_room(NULL,text);
 
 
 /*** Show who is on ***/
-who(user,people)
+void who(user,people)
 UR_OBJECT user;
 int people;
 {
@@ -4843,7 +4843,7 @@ write_user(user,text);
 
 
 /*** Do the help ***/
-help(user)
+void help(user)
 UR_OBJECT user;
 {
 int ret;
@@ -4879,7 +4879,7 @@ if (ret==1) user->misc_op=2;
 
 
 /*** Show the command available ***/
-help_commands(user)
+void help_commands(user)
 UR_OBJECT user;
 {
 int com,cnt,lev;
@@ -4913,7 +4913,7 @@ write_user(user,"\nType '~FG.help <command name>~RS' for specific help on a comm
 
 /*** Show the credits. Add your own credits here if you wish but PLEASE leave 
      my credits intact. Thanks. */
-help_credits(user)
+void help_credits(user)
 UR_OBJECT user;
 {
 sprintf(text,"\n~BB*** The Credits :) ***\n\n~BRNUTS version %s, Copyright (C) Neil Robertson 1996.\n\n",VERSION);
@@ -4929,7 +4929,7 @@ write_user(user,"~BM             ~BB             ~BT             ~BG            
 
 
 /*** Read the message board ***/
-read_board(user)
+void read_board(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -4961,7 +4961,7 @@ if (rm==user->room) {
 
 
 /*** Write on the message board ***/
-write_board(user,inpstr,done_editing)
+void write_board(user,inpstr,done_editing)
 UR_OBJECT user;
 char *inpstr;
 int done_editing;
@@ -5028,7 +5028,7 @@ user->room->mesg_cnt++;
 
 
 /*** Wipe some messages off the board ***/
-wipe_board(user)
+void wipe_board(user)
 UR_OBJECT user;
 {
 int num,cnt,valid;
@@ -5114,7 +5114,7 @@ write_room_except(rm,text,user);
 
 /*** Search all the boards for the words given in the list. Rooms fixed to
 	private will be ignore if the users level is less than gatecrash_level ***/
-search_boards(user)
+void search_boards(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -5175,7 +5175,7 @@ else write_user(user,"No occurences found.\n");
 
 
 /*** See review of conversation ***/
-review(user)
+void review(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm=user->room;
@@ -5209,7 +5209,7 @@ else write_user(user,"\n~BB~FG*** End ***\n\n");
 
 
 /*** Return to home site ***/
-home(user)
+void home(user)
 UR_OBJECT user;
 {
 if (user->room!=NULL) {
@@ -5233,7 +5233,7 @@ look(user);
 
 
 /*** Show some user stats ***/
-status(user)
+void status(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -5282,7 +5282,7 @@ write_user(user,text);
 
 
 /*** Read your mail ***/
-rmail(user)
+void rmail(user)
 UR_OBJECT user;
 {
 FILE *infp,*outfp;
@@ -5316,7 +5316,7 @@ if (ret==1) user->misc_op=2;
 
 
 /*** Send mail message ***/
-smail(user,inpstr,done_editing)
+void smail(user,inpstr,done_editing)
 UR_OBJECT user;
 char *inpstr;
 int done_editing;
@@ -5402,7 +5402,7 @@ editor(user,NULL);
      have a situation where the user deletes all his mail but still gets
      the YOU HAVE UNREAD MAIL message on logging on if the idiot forgot to 
      read it first. ***/
-dmail(user)
+void dmail(user)
 UR_OBJECT user;
 {
 FILE *infp,*outfp;
@@ -5469,7 +5469,7 @@ else {
 
 
 /*** Show list of people your mail is from without seeing the whole lot ***/
-mail_from(user)
+void mail_from(user)
 UR_OBJECT user;
 {
 FILE *fp;
@@ -5501,7 +5501,7 @@ write_user(user,text);
 
 
 /*** Enter user profile ***/
-enter_profile(user,done_editing)
+void enter_profile(user,done_editing)
 UR_OBJECT user;
 int done_editing;
 {
@@ -5530,7 +5530,7 @@ write_user(user,"Profile stored.\n");
 
 
 /*** Examine a user ***/
-examine(user)
+void examine(user)
 UR_OBJECT user;
 {
 UR_OBJECT u,u2;
@@ -5644,7 +5644,7 @@ write_user(user,"\n");
 
 
 /*** Show talker rooms ***/
-rooms(user,show_topics)
+void rooms(user,show_topics)
 UR_OBJECT user;
 int show_topics;
 {
@@ -5687,7 +5687,7 @@ write_user(user,"\n");
 
 
 /*** List defined netlinks and their status ***/
-netstat(user)
+void netstat(user)
 UR_OBJECT user;
 {
 NL_OBJECT nl;
@@ -5735,7 +5735,7 @@ write_user(user,"\n");
 
 /*** Show type of data being received down links (this is usefull when a
      link has hung) ***/
-netdata(user)
+void netdata(user)
 UR_OBJECT user;
 {
 NL_OBJECT nl;
@@ -5770,7 +5770,7 @@ else write_user(user,"\n");
 
 
 /*** Connect a netlink. Use the room as the key ***/
-connect_netlink(user)
+void connect_netlink(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -5857,7 +5857,7 @@ write_user(user,"Disconnected.\n");
 	password and they do this by specifying the user at the end. When this is 
 	done the old password given can be anything, the wiz doesnt have to know it
 	in advance. ***/
-change_pass(user)
+void change_pass(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -5953,7 +5953,7 @@ write_syslog(text,1);
 
 
 /*** Kill a user ***/
-kill_user(user)
+void kill_user(user)
 UR_OBJECT user;
 {
 UR_OBJECT victim;
@@ -5992,7 +5992,7 @@ write_room(NULL,"~FM~OLYou hear insane laughter from the beyond the grave...\n")
 
 
 /*** Promote a user ***/
-promote(user)
+void promote(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6060,7 +6060,7 @@ destructed=0;
 
 
 /*** Demote a user ***/
-demote(user)
+void demote(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6137,7 +6137,7 @@ destructed=0;
 
 
 /*** List banned sites or users ***/
-listbans(user)
+void listbans(user)
 UR_OBJECT user;
 {
 int i;
@@ -6185,7 +6185,7 @@ write_user(user,"Usage: listbans sites/users/swears\n");
 
 
 /*** Ban a site/domain or user ***/
-ban(user)
+void ban(user)
 UR_OBJECT user;
 {
 char *usage="Usage: ban site/user <site/user name>\n";
@@ -6199,7 +6199,7 @@ write_user(user,usage);
 }
 
 
-ban_site(user)
+void ban_site(user)
 UR_OBJECT user;
 {
 FILE *fp;
@@ -6240,7 +6240,7 @@ write_syslog(text,1);
 }
 
 
-ban_user(user)
+void ban_user(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6310,7 +6310,7 @@ if (u!=NULL) {
 	
 
 /*** uban a site (or domain) or user ***/
-unban(user)
+void unban(user)
 UR_OBJECT user;
 {
 char *usage="Usage: unban site/user <site/user name>\n";
@@ -6324,7 +6324,7 @@ write_user(user,usage);
 }
 
 
-unban_site(user)
+void unban_site(user)
 UR_OBJECT user;
 {
 FILE *infp,*outfp;
@@ -6369,7 +6369,7 @@ write_syslog(text,1);
 }
 
 
-unban_user(user)
+void unban_user(user)
 UR_OBJECT user;
 {
 FILE *infp,*outfp;
@@ -6417,7 +6417,7 @@ write_syslog(text,1);
 
 
 /*** Set user visible or invisible ***/
-visibility(user,vis)
+void visibility(user,vis)
 UR_OBJECT user;
 int vis;
 {
@@ -6442,7 +6442,7 @@ user->vis=0;
 
 
 /*** Site a user ***/
-site(user)
+void site(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6479,7 +6479,7 @@ destructed=0;
 
 
 /*** Wake up some sleepy herbert ***/
-wake(user)
+void wake(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6510,7 +6510,7 @@ write_user(user,"Wake up call sent.\n");
 
 /*** Shout something to other wizes and gods. If the level isnt given it
 	defaults to WIZ level. ***/
-wizshout(user,inpstr)
+void wizshout(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -6554,7 +6554,7 @@ write_level(WIZ,1,text,user);
 /*** Muzzle an annoying user so he cant speak, emote, echo, write, smail
 	or bcast. Muzzles have levels from WIZ to GOD so for instance a wiz
      cannot remove a muzzle set by a god.  ***/
-muzzle(user)
+void muzzle(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6626,7 +6626,7 @@ destructed=0;
 
 
 /*** Umuzzle the bastard now he's apologised and grovelled enough via email ***/
-unmuzzle(user)
+void unmuzzle(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6691,7 +6691,7 @@ destructed=0;
 
 
 /*** Switch system logging on and off ***/
-logging(user)
+void logging(user)
 UR_OBJECT user;
 {
 if (system_logging) {
@@ -6709,7 +6709,7 @@ write_syslog(text,1);
 
 
 /*** Set minlogin level ***/
-minlogin(user)
+void minlogin(user)
 UR_OBJECT user;
 {
 UR_OBJECT u,next;
@@ -6765,7 +6765,7 @@ write_user(user,text);
 
 
 /*** Show talker system parameters etc ***/
-system_details(user)
+void system_details(user)
 UR_OBJECT user;
 {
 NL_OBJECT nl;
@@ -6864,7 +6864,7 @@ write_user(user,text);
 /*** Set the character mode echo on or off. This is only for users logging in
      via a character mode client, those using a line mode client (eg unix
      telnet) will see no effect. ***/
-toggle_charecho(user)
+void toggle_charecho(user)
 UR_OBJECT user;
 {
 if (!user->charmode_echo) {
@@ -6880,7 +6880,7 @@ if (user->room==NULL) prompt(user);
 
 
 /*** Free a hung socket ***/
-clearline(user)
+void clearline(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -6914,7 +6914,7 @@ no_prompt=0;
 
 
 /*** Change whether a rooms access is fixed or not ***/
-change_room_fix(user,fix)
+void change_room_fix(user,fix)
 UR_OBJECT user;
 int fix;
 {
@@ -6975,7 +6975,7 @@ reset_access(rm);
 
 
 /*** View the system log ***/
-viewlog(user)
+void viewlog(user)
 UR_OBJECT user;
 {
 FILE *fp;
@@ -7040,7 +7040,7 @@ write_syslog("ERROR: Line count error in viewlog().\n",0);
 /*** A newbie is requesting an account. Get his email address off him so we
      can validate who he is before we promote him and let him loose as a 
      proper user. ***/
-account_request(user,inpstr)
+void account_request(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -7069,7 +7069,7 @@ user->accreq=1;
 
 
 /*** Clear the review buffer ***/
-revclr(user)
+void revclr(user)
 UR_OBJECT user;
 {
 char *name;
@@ -7083,7 +7083,7 @@ write_room_except(user->room,text,user);
 
 
 /*** Clone a user in another room ***/
-create_clone(user)
+void create_clone(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -7148,7 +7148,7 @@ write_room_except(rm,text,user);
 
 
 /*** Destroy user clone ***/
-destroy_clone(user)
+void destroy_clone(user)
 UR_OBJECT user;
 {
 UR_OBJECT u,u2;
@@ -7197,7 +7197,7 @@ write_user(user,text);
 
 
 /*** Show users own clones ***/
-myclones(user)
+void myclones(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -7220,7 +7220,7 @@ else {
 
 
 /*** Show all clones on the system ***/
-allclones(user)
+void allclones(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -7246,7 +7246,7 @@ else {
 
 /*** User swaps places with his own clone. All we do is swap the rooms the
 	objects are in. ***/
-clone_switch(user)
+void clone_switch(user)
 UR_OBJECT user;
 {
 UR_OBJECT u;
@@ -7276,7 +7276,7 @@ write_user(user,"You do not have a clone in that room.\n");
 
 
 /*** Make a clone speak ***/
-clone_say(user,inpstr)
+void clone_say(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -7305,7 +7305,7 @@ write_user(user,"You do not have a clone in that room.\n");
 
 /*** Set what a clone will hear, either all speach , just bad language
 	or nothing. ***/
-clone_hear(user)
+void clone_hear(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -7344,7 +7344,7 @@ write_user(user,"Clone will now hear nothing.\n");
 
 
 /*** Stat a remote system ***/
-remote_stat(user)
+void remote_stat(user)
 UR_OBJECT user;
 {
 NL_OBJECT nl;
@@ -7375,7 +7375,7 @@ write_user(user,"Request sent.\n");
 
 
 /*** Switch swearing ban on and off ***/
-swban(user)
+void swban(user)
 UR_OBJECT user;
 {
 if (!ban_swearing) {
@@ -7392,7 +7392,7 @@ ban_swearing=0;
 
 
 /*** Do AFK ***/
-afk(user,inpstr)
+void afk(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -7441,7 +7441,7 @@ if (user->vis) {
 
 
 /*** Toggle user colour on and off ***/
-toggle_colour(user)
+void toggle_colour(user)
 UR_OBJECT user;
 {
 int col;
@@ -7467,7 +7467,7 @@ if (user->room==NULL) prompt(user);
 }
 
 
-toggle_ignshout(user)
+void toggle_ignshout(user)
 UR_OBJECT user;
 {
 if (user->ignshout) {
@@ -7480,7 +7480,7 @@ user->ignshout=1;
 }
 
 
-toggle_igntell(user)
+void toggle_igntell(user)
 UR_OBJECT user;
 {
 if (user->igntell) {
@@ -7493,7 +7493,7 @@ user->igntell=1;
 }
 
 
-suicide(user)
+void suicide(user)
 UR_OBJECT user;
 {
 if (word_count<2) {
@@ -7509,7 +7509,7 @@ no_prompt=1;
 
 
 /*** Delete a user ***/
-delete_user(user,this_user)
+void delete_user(user,this_user)
 UR_OBJECT user;
 int this_user;
 {
@@ -7583,7 +7583,7 @@ write_syslog(text,1);
 
 /*** Shutdown talker interface func. Countdown time is entered in seconds so
 	we can specify less than a minute till reboot. ***/
-shutdown_com(user)
+void shutdown_com(user)
 UR_OBJECT user;
 {
 if (rs_which==1) {
@@ -7632,7 +7632,7 @@ no_prompt=1;
 
 
 /*** Reboot talker interface func. ***/
-reboot_com(user)
+void reboot_com(user)
 UR_OBJECT user;
 {
 if (!rs_which) {
@@ -7682,7 +7682,7 @@ no_prompt=1;
 
 
 /*** Show recorded tells and pemotes ***/
-revtell(user)
+void revtell(user)
 UR_OBJECT user;
 {
 int i,cnt,line;
@@ -7724,7 +7724,7 @@ alarm(heartbeat);
 
 
 /*** See if timed reboot or shutdown is underway ***/
-check_reboot_shutdown()
+void check_reboot_shutdown()
 {
 int secs;
 char *w[]={ "~FRShutdown","~FYRebooting" };
@@ -7753,7 +7753,7 @@ if (rs_countdown<60 && secs>=10) {
 /*** login_time_out is the length of time someone can idle at login, 
      user_idle_time is the length of time they can idle once logged in. 
      Also ups users total login time. ***/
-check_idle_and_timeout()
+void check_idle_and_timeout()
 {
 UR_OBJECT user,next;
 int tm;
@@ -7799,7 +7799,7 @@ while(user) {
 /*** See if any net connections are dragging their feet. If they have been idle
      longer than net_idle_time the drop them. Also send keepalive signals down
      links, this saves having another function and loop to do it. ***/
-check_nethangs_send_keepalives()
+void check_nethangs_send_keepalives()
 {
 NL_OBJECT nl;
 int secs;
