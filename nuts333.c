@@ -48,7 +48,7 @@
 
 /*** This function calls all the setup routines and also contains the
 	main program loop ***/
-main(argc,argv)
+int main(argc,argv)
 int argc;
 char *argv[];
 {
@@ -239,7 +239,7 @@ while(1) {
 /************ MAIN LOOP FUNCTIONS ************/
 
 /*** Set up readmask for select ***/
-setup_readmask(mask)
+void setup_readmask(mask)
 fd_set *mask;
 {
 UR_OBJECT user;
@@ -259,7 +259,7 @@ for(nl=nl_first;nl!=NULL;nl=nl->next)
 
 
 /*** Accept incoming connections on listen sockets ***/
-accept_connection(lsock,num)
+void accept_connection(lsock,num)
 int lsock,num;
 {
 UR_OBJECT user,create_user();
@@ -325,7 +325,7 @@ return site;
 
 
 /*** See if users site is banned ***/
-site_banned(site)
+int site_banned(site)
 char *site;
 {
 FILE *fp;
@@ -344,7 +344,7 @@ return 0;
 
 
 /*** See if user is banned ***/
-user_banned(name)
+int user_banned(name)
 char *name;
 {
 FILE *fp;
@@ -364,7 +364,7 @@ return 0;
 
 /*** Attempt to get '\n' terminated line of input from a character
      mode client else store data read so far in user buffer. ***/
-get_charclient_line(user,inpstr,len)
+int get_charclient_line(user,inpstr,len)
 UR_OBJECT user;
 char *inpstr;
 int len;
@@ -398,7 +398,7 @@ return 0;
 
 
 /*** Put string terminate char. at first char < 32 ***/
-terminate(str)
+void terminate(str)
 char *str;
 {
 int i;
@@ -412,7 +412,7 @@ str[i-1]=0;
 /*** Get words from sentence. This function prevents the words in the 
      sentence from writing off the end of a word array element. This is
      difficult to do with sscanf() hence I use this function instead. ***/
-wordfind(inpstr)
+int wordfind(inpstr)
 char *inpstr;
 {
 int wn,wpos;
@@ -431,7 +431,7 @@ return wn-1;
 
 
 /*** clear word array etc. ***/
-clear_words()
+void clear_words()
 {
 int w;
 for(w=0;w<MAX_WORDS;++w) word[w][0]='\0';
@@ -441,7 +441,7 @@ word_count=0;
 
 /************ PARSE CONFIG FILE **************/
 
-load_and_parse_config()
+void load_and_parse_config()
 {
 FILE *fp;
 char line[81]; /* Should be long enough */
@@ -590,7 +590,7 @@ for(rm1=room_first;rm1!=NULL;rm1=rm1->next) {
 
 
 /*** Parse init section ***/
-parse_init_section()
+void parse_init_section()
 {
 static int in_section=0;
 int op,val;
@@ -855,7 +855,7 @@ switch(op) {
 
 
 /*** Parse rooms section ***/
-parse_rooms_section()
+void parse_rooms_section()
 {
 static int in_section=0;
 int i;
@@ -960,7 +960,7 @@ boot_exit(1);
 
 
 /*** Parse sites section ***/
-parse_sites_section()
+void parse_sites_section()
 {
 NL_OBJECT nl;
 static int in_section=0;
@@ -1006,7 +1006,7 @@ strcpy(nl->verification,wrd[3]);
 }
 
 
-yn_check(wd)
+int yn_check(wd)
 char *wd;
 {
 if (!strcmp(wd,"YES")) return 1;
@@ -1015,7 +1015,7 @@ return -1;
 }
 
 
-onoff_check(wd)
+int onoff_check(wd)
 char *wd;
 {
 if (!strcmp(wd,"ON")) return 1;
@@ -1027,7 +1027,7 @@ return -1;
 /************ INITIALISATION FUNCTIONS *************/
 
 /*** Initialise globals ***/
-init_globals()
+void init_globals()
 {
 verification[0]='\0';
 port[0]=0;
@@ -1081,7 +1081,7 @@ time(&boot_time);
 
 
 /*** Initialise the signal traps etc ***/
-init_signals()
+void init_signals()
 {
 void sig_handler();
 
@@ -1156,7 +1156,7 @@ switch(sig) {
 
 	
 /*** Initialise sockets on ports ***/
-init_sockets()
+void init_sockets()
 {
 struct sockaddr_in bind_addr;
 int i,on,size;
@@ -1188,7 +1188,7 @@ for(i=0;i<3;++i) {
 /*** Initialise connections to remote servers. Basically this tries to connect
      to the services listed in the config file and it puts the open sockets in 
 	the NL_OBJECT linked list which the talker then uses ***/
-init_connections()
+void init_connections()
 {
 NL_OBJECT nl;
 RM_OBJECT rm;
@@ -1225,7 +1225,7 @@ else printf("  No remote connections configured.\n");
 
 
 /*** Do the actual connection ***/
-connect_to_site(nl)
+int connect_to_site(nl)
 NL_OBJECT nl;
 {
 struct sockaddr_in con_addr;
@@ -1269,7 +1269,7 @@ return 0;
 /************* WRITE FUNCTIONS ************/
 
 /*** Write a NULL terminated string to a socket ***/
-write_sock(sock,str)
+void write_sock(sock,str)
 int sock;
 char *str;
 {
@@ -1279,7 +1279,7 @@ write(sock,str,strlen(str));
 
 
 /*** Send message to user ***/
-write_user(user,str)
+void write_user(user,str)
 UR_OBJECT user;
 char *str;
 {
@@ -1360,7 +1360,7 @@ if (user->colour) write_sock(sock,"\033[0m");
 
 /*** Write to users of level 'level' and above or below depending on above
      variable; if 1 then above else below ***/
-write_level(level,above,str,user)
+void write_level(level,above,str,user)
 int level,above;
 char *str;
 UR_OBJECT user;
@@ -1378,7 +1378,7 @@ for(u=user_first;u!=NULL;u=u->next) {
 
 
 /*** Subsid function to below but this one is used the most ***/
-write_room(rm,str)
+void write_room(rm,str)
 RM_OBJECT rm;
 char *str;
 {
@@ -1389,7 +1389,7 @@ write_room_except(rm,str,NULL);
 
 /*** Write to everyone in room rm except for "user". If rm is NULL write 
      to all rooms. ***/
-write_room_except(rm,str,user)
+void write_room_except(rm,str,user)
 RM_OBJECT rm;
 char *str;
 UR_OBJECT user;
@@ -1422,7 +1422,7 @@ for(u=user_first;u!=NULL;u=u->next) {
 
 
 /*** Write a string to system log ***/
-write_syslog(str,write_time)
+void write_syslog(str,write_time)
 char *str;
 int write_time;
 {
@@ -1439,7 +1439,7 @@ fclose(fp);
 /******** LOGIN/LOGOUT FUNCTIONS ********/
 
 /*** Login function. Lots of nice inline code :) ***/
-login(user,inpstr)
+void login(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -1582,7 +1582,7 @@ switch(user->login) {
 
 
 /*** Count up attempts made by user to login ***/
-attempts(user)
+void attempts(user)
 UR_OBJECT user;
 {
 user->attempts++;
@@ -1599,7 +1599,7 @@ echo_on(user);
 
 
 /*** Load the users details ***/
-load_user_details(user)
+int load_user_details(user)
 UR_OBJECT user;
 {
 FILE *fp;
@@ -1633,7 +1633,7 @@ return 1;
 
 
 /*** Save a users stats ***/
-save_user_details(user,save_current)
+int save_user_details(user,save_current)
 UR_OBJECT user;
 int save_current;
 {
@@ -1665,7 +1665,7 @@ return 1;
 
 
 /*** Connect the user to the talker proper ***/
-connect_user(user)
+void connect_user(user)
 UR_OBJECT user;
 {
 UR_OBJECT u,u2;
@@ -1751,7 +1751,7 @@ user->login=0;
 
 
 /*** Disconnect user from talker ***/
-disconnect_user(user)
+void disconnect_user(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -1802,7 +1802,7 @@ destructed=0;
 
 
 /*** Tell telnet not to echo characters - for password entry ***/
-echo_off(user)
+void echo_off(user)
 UR_OBJECT user;
 {
 char seq[4];
@@ -1814,7 +1814,7 @@ write_user(user,seq);
 
 
 /*** Tell telnet to echo characters ***/
-echo_on(user)
+void echo_on(user)
 UR_OBJECT user;
 {
 char seq[4];
@@ -1829,7 +1829,7 @@ write_user(user,seq);
 /************ MISCELLANIOUS FUNCTIONS *************/
 
 /*** Stuff that is neither speech nor a command is dealt with here ***/
-misc_ops(user,inpstr)
+int misc_ops(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -1909,7 +1909,7 @@ return 0;
 
 
 /*** The editor used for writing profiles, mail and messages on the boards ***/
-editor(user,inpstr)
+void editor(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -2035,7 +2035,7 @@ editor_done(user);
 
 
 /*** Reset some values at the end of editing ***/
-editor_done(user)
+void editor_done(user)
 UR_OBJECT user;
 {
 user->misc_op=0;
@@ -2050,7 +2050,7 @@ prompt(user);
 
 
 /*** Record speech and emotes in the room. ***/
-record(rm,str)
+void record(rm,str)
 RM_OBJECT rm;
 char *str;
 {
@@ -2062,7 +2062,7 @@ rm->revline=(rm->revline+1)%REVIEW_LINES;
 
 
 /*** Records tells and pemotes sent to the user. ***/
-record_tell(user,str)
+void record_tell(user,str)
 UR_OBJECT user;
 char *str;
 {
@@ -2075,7 +2075,7 @@ user->revline=(user->revline+1)%REVTELL_LINES;
 
 
 /*** Set room access back to public if not enough users in room ***/
-reset_access(rm)
+void reset_access(rm)
 RM_OBJECT rm;
 {
 UR_OBJECT u;
@@ -2099,7 +2099,7 @@ if (cnt<min_private_users) {
 
 
 /*** Exit because of error during bootup ***/
-boot_exit(code)
+void boot_exit(code)
 int code;
 {
 switch(code) {
@@ -2162,7 +2162,7 @@ switch(code) {
 
 
 /*** User prompt ***/
-prompt(user)
+void prompt(user)
 UR_OBJECT user;
 {
 int hr,min;
@@ -2193,7 +2193,7 @@ write_user(user,text);
      user!=NULL since if NULL we dont know if his terminal can support colour 
      or not. Return values: 
 	        0 = cannot find file, 1 = found file, 2 = found and finished ***/
-more(user,sock,filename)
+int more(user,sock,filename)
 UR_OBJECT user;
 int sock;
 char *filename;
@@ -2315,7 +2315,7 @@ return retval;
 
 
 /*** Set global vars. hours,minutes,seconds,date,day,month,year ***/
-set_date_time()
+void set_date_time()
 {
 struct tm *tm_struct; /* structure is defined in time.h */
 time_t tm_num;
@@ -2383,7 +2383,7 @@ return NULL;
 
 
 /*** Return level value based on level name ***/
-get_level(name)
+int get_level(name)
 char *name;
 {
 int i;
@@ -2400,7 +2400,7 @@ return -1;
 /*** See if a user has access to a room. If room is fixed to private then
 	it is considered a wizroom so grant permission to any user of WIZ and
 	above for those. ***/
-has_room_access(user,rm)
+int has_room_access(user,rm)
 UR_OBJECT user;
 RM_OBJECT rm;
 {
@@ -2414,7 +2414,7 @@ return 1;
 
 /*** See if user has unread mail, mail file has last read time on its 
      first line ***/
-has_unread_mail(user)
+int has_unread_mail(user)
 UR_OBJECT user;
 {
 FILE *fp;
@@ -2431,7 +2431,7 @@ return 0;
 
 
 /*** This is function that sends mail to other users ***/
-send_mail(user,to,ptr)
+void send_mail(user,to,ptr)
 UR_OBJECT user;
 char *to,*ptr;
 {
@@ -2497,7 +2497,7 @@ write_user(get_user(to),"\07~FT~OL~LI** YOU HAVE NEW MAIL **\n");
 
 /*** Spool mail file and ask for confirmation of users existence on remote
 	site ***/
-send_external_mail(nl,user,to,ptr)
+void send_external_mail(nl,user,to,ptr)
 NL_OBJECT nl;
 UR_OBJECT user;
 char *to,*ptr;
@@ -2528,7 +2528,7 @@ write_user(user,"Mail sent.\n");
 
 
 /*** See if string contains any swearing ***/
-contains_swearing(str)
+int contains_swearing(str)
 char *str;
 {
 char *s;
@@ -2551,7 +2551,7 @@ return 0;
 
 
 /*** Count the number of colour commands in a string ***/
-colour_com_count(str)
+int colour_com_count(str)
 char *str;
 {
 char *s;
@@ -2624,7 +2624,7 @@ rm->revline=0;
 
 
 /*** Clear the screen ***/
-cls(user)
+void cls(user)
 UR_OBJECT user;
 {
 int i;
@@ -2642,7 +2642,7 @@ while(*str) {  *str=toupper(*str);  str++; }
 
 
 /*** Convert string to lower case ***/
-strtolower(str)
+void strtolower(str)
 char *str;
 {
 while(*str) {  *str=tolower(*str);  str++; }
@@ -2880,7 +2880,7 @@ for(u=user_first;u!=NULL;u=u->next) {
    even the newline count is important in some places. */
 
 /*** Accept incoming server connection ***/
-accept_server_connection(sock,acc_addr)
+void accept_server_connection(sock,acc_addr)
 int sock;
 struct sockaddr_in acc_addr;
 {
@@ -2934,7 +2934,7 @@ write_syslog("NETLINK: Request denied, no free room links.\n",1);
 		
 
 /*** Deal with netlink data on link nl ***/
-exec_netcom(nl,inpstr)
+void exec_netcom(nl,inpstr)
 NL_OBJECT nl;
 char *inpstr;
 {
@@ -3677,7 +3677,7 @@ write_sock(nl->socket,text);
 
 
 /*** Shutdown the netlink and pull any remote users back home ***/
-shutdown_netlink(nl)
+void shutdown_netlink(nl)
 NL_OBJECT nl;
 {
 UR_OBJECT u;
@@ -3741,7 +3741,7 @@ nl->warned=0;
 /*************** START OF COMMAND FUNCTIONS AND THEIR SUBSIDS **************/
 
 /*** Deal with user input ***/
-exec_com(user,inpstr)
+void exec_com(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -4049,7 +4049,7 @@ exit(0);
 
 
 /*** Say user speech. ***/
-say(user,inpstr)
+void say(user,inpstr)
 UR_OBJECT user;
 char *inpstr;
 {
@@ -5817,7 +5817,7 @@ write_syslog("Unknown hostname.\n",0);
 
 
 /*** Disconnect a link ***/
-disconnect_netlink(user)
+void disconnect_netlink(user)
 UR_OBJECT user;
 {
 RM_OBJECT rm;
@@ -7715,7 +7715,7 @@ reset_alarm();
 }
 
 
-reset_alarm()
+void reset_alarm()
 {
 signal(SIGALRM,do_events);
 alarm(heartbeat);
@@ -7842,7 +7842,7 @@ destructed=0;
 
 /*** Remove any expired messages from boards unless force = 2 in which case
 	just do a recount. ***/
-check_messages(user,force)
+void check_messages(user,force)
 UR_OBJECT user;
 int force;
 {
