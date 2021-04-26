@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SOURCE="nuts333.c"
+
+BINARY="nuts333"
+
+FLAGS="-lcrypt -Wextra -Wformat=2 -Wmisleading-indentation"
+
+DEPS="ccache gcc"
+
+for d in ${DEPS} ; do
+  [ ! -x "$(which ccache 2>/dev/null)" ] && { echo "ccache: missing" ; exit 1 ; }
+done
+
+ccache gcc ${FLAGS} ${SOURCE} -o ${BINARY}
