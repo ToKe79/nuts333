@@ -5528,7 +5528,7 @@ sprintf(filename,"%s/%s.P",USERFILES,user->name);
 if (!(fp=fopen(filename,"w"))) {
 	sprintf(text,"%s: couldn't save your profile.\n",syserror);
 	write_user(user,text);
-	sprintf("ERROR: Couldn't open file %s to write in enter_profile().\n",filename);
+	sprintf(text,"ERROR: Couldn't open file %s to write in enter_profile().\n",filename);
 	write_syslog(text,0);
 	return;
 	}
