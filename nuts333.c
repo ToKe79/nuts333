@@ -2639,7 +2639,7 @@ UR_OBJECT user;
 {
 int i;
 
-for(i=0;i<5;++i) write_user(user,"\n\n\n\n\n\n\n\n\n\n");	
+for(i=0;i<5;++i) write_user(user,"\n\n\n\n\n\n\n\n\n\n");
 }
 
 
@@ -2941,7 +2941,7 @@ write_sock(sock,"DENIED CONNECT 3\n");
 close(sock);
 write_syslog("NETLINK: Request denied, no free room links.\n",1);
 }
-	
+
 
 /*** Deal with netlink data on link nl ***/
 void exec_netcom(nl,inpstr)
@@ -3108,7 +3108,7 @@ if (u=get_user(name)) {
 
 /* See if user of this name exists on this system by trying to load up
    datafile */
-if ((u=create_user())==NULL) {	
+if ((u=create_user())==NULL) {
 	sprintf(text,"DENIED %s 6\n",name);
 	write_sock(nl->socket,text);
 	return;
@@ -3164,7 +3164,7 @@ num_of_users++;
 sprintf(text,"GRANTED %s\n",name);
 write_sock(nl->socket,text);
 }
-	
+
 
 /*** User is leaving this system ***/
 void nl_release(nl,name)
@@ -7131,7 +7131,7 @@ for(u=user_first;u!=NULL;u=u->next) {
 		}
 	}
 /* Create clone */
-if ((u=create_user())==NULL) {	
+if ((u=create_user())==NULL) {
 	sprintf(text,"%s: Unable to create copy.\n",syserror);
 	write_user(user,text);
 	write_syslog("ERROR: Unable to create user copy in clone().\n",0);
