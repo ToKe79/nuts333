@@ -1454,7 +1454,7 @@ UR_OBJECT user;
 char *inpstr;
 {
 UR_OBJECT u;
-int i;
+size_t i;
 char name[ARR_SIZE],passwd[ARR_SIZE];
 
 name[0]='\0';  passwd[0]='\0';
@@ -3428,7 +3428,7 @@ if (!strcmp(w2,"OK")) {
 		}
 	sprintf(text,"NETLINK: Connection to %s verified.\n",nl->service);
 	write_syslog(text,1);
-	sprintf(text,"~OLSYSTEM:~RS New connection to service %s in the %s.\n",nl->service,nl->connect_room);
+	sprintf(text,"~OLSYSTEM:~RS New connection to service %s in the %s.\n",nl->service,(char *)nl->connect_room);
 	write_room(NULL,text);
 	return;
 	}
@@ -3780,7 +3780,7 @@ while(command[i][0]!='*') {
 	if (!strncmp(command[i],comword,len)) {  com_num=i;  break;  }
 	++i;
 	}
-if (user->room!=NULL && (com_num==-1 || com_level[com_num] > user->level)) {
+if (user->room!=NULL && ((int)com_num==-1 || com_level[com_num] > user->level)) {
 	write_user(user,"Unknown command.\n");  return;
 	}
 /* See if user has gone across a netlink and if so then intercept certain
@@ -5772,7 +5772,7 @@ for(nl=nl_first;nl!=NULL;nl=nl->next) {
 	if (++cnt==1) write_user(user,"To              : From             Last recv.\n\n");
 	if (nl->mesg_user==(UR_OBJECT)-1) strcpy(name,"<unknown>");
 	else strcpy(name,nl->mesg_user->name);
-	sprintf(text,"%-15s : %-15s  %d seconds ago.\n",name,nl->service,(time(0)-nl->last_recvd));
+	sprintf(text,"%-15s : %-15s  %ld seconds ago.\n",name,nl->service,(time(0)-nl->last_recvd));
 	write_user(user,text);
 	}
 if (!cnt) write_user(user,"No messages being received.\n\n");
@@ -7219,7 +7219,7 @@ for(u=user_first;u!=NULL;u=u->next) {
 	if (u->type!=CLONE_TYPE || u->owner!=user) continue;
 	if (++cnt==1)
 		write_user(user,"\n~BB*** Rooms you have clones in ***\n\n");
-	sprintf(text,"  %s\n",u->room);
+	sprintf(text,"  %s\n",(char *)u->room);
 	write_user(user,text);
 	}
 if (!cnt) write_user(user,"You have no clones.\n");
@@ -7244,7 +7244,7 @@ for(u=user_first;u!=NULL;u=u->next) {
 		sprintf(text,"\n~BB*** Current clones %s ***\n\n",long_date(1));
 		write_user(user,text);
 		}
-	sprintf(text,"%-15s : %s\n",u->name,u->room);
+	sprintf(text,"%-15s : %s\n",u->name,(char *)u->room);
 	write_user(user,text);
 	}
 if (!cnt) write_user(user,"There are no clones on the system.\n");
