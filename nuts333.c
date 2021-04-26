@@ -1120,38 +1120,47 @@ switch(sig) {
 		}
 	write_room(NULL,"\n\n~OLSYSTEM:~FR~LI SIGTERM received, initiating shutdown!\n\n");
 	talker_shutdown(NULL,"a termination signal (SIGTERM)",0);
+	break;
 
 	case SIGSEGV:
 	switch(crash_action) {
 		case 0:
 		write_room(NULL,"\n\n\07~OLSYSTEM:~FR~LI PANIC - Segmentation fault, initiating shutdown!\n\n");
 		talker_shutdown(NULL,"a segmentation fault (SIGSEGV)",0);
+		break;
 
 		case 1:
 		write_room(NULL,"\n\n\07~OLSYSTEM:~FR~LI WARNING - A segmentation fault has just occured!\n\n");
 		write_syslog("WARNING: A segmentation fault occured!\n",1);
 		longjmp(jmpvar,0);
+		break;
 
 		case 2:
 		write_room(NULL,"\n\n\07~OLSYSTEM:~FR~LI PANIC - Segmentation fault, initiating reboot!\n\n");
 		talker_shutdown(NULL,"a segmentation fault (SIGSEGV)",1);
+		break;
 		}
+	break;
 
 	case SIGBUS:
 	switch(crash_action) {
 		case 0:
 		write_room(NULL,"\n\n\07~OLSYSTEM:~FR~LI PANIC - Bus error, initiating shutdown!\n\n");
 		talker_shutdown(NULL,"a bus error (SIGBUS)",0);
+		break;
 
 		case 1:
 		write_room(NULL,"\n\n\07~OLSYSTEM:~FR~LI WARNING - A bus error has just occured!\n\n");
 		write_syslog("WARNING: A bus error occured!\n",1);
 		longjmp(jmpvar,0);
+		break;
 
 		case 2:
 		write_room(NULL,"\n\n\07~OLSYSTEM:~FR~LI PANIC - Bus error, initiating reboot!\n\n");
 		talker_shutdown(NULL,"a bus error (SIGBUS)",1);
+		break;
 		}
+	break;
 	}
 }
 
