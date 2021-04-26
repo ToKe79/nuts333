@@ -2513,7 +2513,7 @@ UR_OBJECT user;
 char *to,*ptr;
 {
 FILE *fp;
-char filename[80];
+char filename[PATH_LEN];
 
 /* Write out to spool file first */
 sprintf(filename,"%s/OUT_%s_%s@%s",MAILSPOOL,user->name,to,nl->service);
@@ -3520,7 +3520,7 @@ NL_OBJECT nl;
 char *to,*from;
 {
 UR_OBJECT user;
-char filename[80];
+char filename[PATH_LEN];
 char text2[ARR_SIZE];
 
 if ((user=get_user(from))!=NULL) {
@@ -3543,7 +3543,7 @@ char *to,*from;
 {
 UR_OBJECT user;
 FILE *fp;
-char text2[ARR_SIZE],filename[80],line[82];
+char text2[ARR_SIZE],filename[PATH_LEN],line[82];
 
 sprintf(filename,"%s/OUT_%s_%s@%s",MAILSPOOL,from,to,nl->service);
 if (!(fp=fopen(filename,"r"))) {
@@ -3575,7 +3575,7 @@ void nl_mail(nl,to,from)
 NL_OBJECT nl;
 char *to,*from;
 {
-char filename[80];
+char filename[PATH_LEN];
 
 sprintf(text,"NETLINK: Mail received for %s from %s.\n",to,nl->service);
 write_syslog(text,1);
@@ -3597,7 +3597,7 @@ void nl_endmail(nl)
 NL_OBJECT nl;
 {
 FILE *infp,*outfp;
-char c,infile[80],mailfile[80],line[DNL+1];
+char c,infile[PATH_LEN],mailfile[PATH_LEN],line[DNL+1];
 
 fclose(nl->mailfile);
 nl->mailfile=NULL;
@@ -3691,7 +3691,7 @@ void shutdown_netlink(nl)
 NL_OBJECT nl;
 {
 UR_OBJECT u;
-char mailfile[80];
+char mailfile[PATH_LEN];
 
 if (nl->type==UNCONNECTED) return;
 
@@ -3944,7 +3944,7 @@ UR_OBJECT user;
 {
 RM_OBJECT rm;
 UR_OBJECT u;
-char temp[81],null[1],*ptr;
+char temp[SERV_NAME_LEN+10],null[1],*ptr;
 char *afk="~BR(AFK)";
 int i,exits,users;
 
@@ -4796,7 +4796,7 @@ int people;
 UR_OBJECT u;
 int cnt,total,invis,mins,remote,idle,logins;
 char line[USER_NAME_LEN+USER_DESC_LEN*2];
-char rname[ROOM_NAME_LEN+1],portstr[5],idlestr[6],sockstr[3];
+char rname[SERV_NAME_LEN+2],portstr[5],idlestr[6],sockstr[3];
 
 total=0;  invis=0;  remote=0;  logins=0;
 if (user->login) sprintf(text,"\n*** Current users %s ***\n\n",long_date(1));
@@ -5750,7 +5750,7 @@ void netdata(user)
 UR_OBJECT user;
 {
 NL_OBJECT nl;
-char from[80],name[USER_NAME_LEN+1];
+char from[PATH_LEN],name[USER_NAME_LEN+1];
 int cnt;
 
 cnt=0;

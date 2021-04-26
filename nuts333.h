@@ -37,6 +37,7 @@
 #define REVIEW_LINES 15
 #define REVTELL_LINES 5
 #define REVIEW_LEN 200
+#define PATH_LEN 255
 /* DNL (Date Number Length) will have to become 12 on Sun Sep 9 02:46:40 2001
    when all the unix timers will flip to 1000000000 :) */
 #define DNL 11
