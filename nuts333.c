@@ -4846,8 +4846,9 @@ for(u=user_first;u!=NULL;u=u->next) {
 	write_user(user,text);
 	}
 sprintf(text,"\nThere are %d visible, %d invisible, %d remote users.\nTotal of %d users",num_of_users-invis,invis,remote,total);
-if (people) sprintf(text,"%s and %d logins.\n\n",text,logins);
-else strcat(text,".\n\n");
+write_user(user,text);
+if (people) sprintf(text," and %d logins.\n\n",logins);
+else sprintf(text,".\n\n");
 write_user(user,text);
 }
 
