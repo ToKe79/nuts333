@@ -219,7 +219,7 @@ while(1) {
 		if (!destructed) {
 			if (user->room!=NULL)  prompt(user);
 			else {
-				switch(com_num) {
+				switch((int)com_num) {
 					case -1  : /* Unknown command */
 					case HOME:
 					case QUIT:
@@ -227,7 +227,8 @@ while(1) {
 					case PROMPT:
 					case SUICIDE:
 					case REBOOT:
-					case SHUTDOWN: prompt(user);
+					case SHUTDOWN: prompt(user); break;
+					default: break;
 					}
 				}
 			}
@@ -267,7 +268,8 @@ UR_OBJECT user,create_user();
 NL_OBJECT create_netlink();
 char *get_ip_address(),site[80];
 struct sockaddr_in acc_addr;
-int accept_sock,size;
+int accept_sock;
+unsigned int size;
 
 size=sizeof(struct sockaddr_in);
 accept_sock=accept(lsock,(struct sockaddr *)&acc_addr,&size);
@@ -2478,7 +2480,7 @@ fprintf(outfp,"%d\r",(int)time(0));
 
 /* Copy current mail file into tempfile if it exists */
 sprintf(filename,"%s/%s.M",USERFILES,to);
-if (infp=fopen(filename,"r")) {
+if ((infp=fopen(filename,"r"))) {
 	/* Discard first line of mail file. */
 	fgets(line,DNL,infp);
 
@@ -3100,7 +3102,7 @@ if (user_banned(name)) {
 	}
 
 /* See if user already on here */
-if (u=get_user(name)) {
+if ((u=get_user(name))) {
 	sprintf(text,"DENIED %s 5\n",name);
 	write_sock(nl->socket,text);
 	return;
@@ -3815,6 +3817,7 @@ if (user->type==REMOTE_TYPE) {
 		case DISCONN:
 			write_user(user,"Sorry, remote users cannot use that command.\n");
 			return;
+		default: break;
 		}
 	}
 
@@ -5305,7 +5308,7 @@ if (!(infp=fopen(filename,"r"))) {
 	write_user(user,"You have no mail.\n");  return;
 	}
 /* Update last read / new mail received time at head of file */
-if (outfp=fopen("tempfile","w")) {
+if ((outfp=fopen("tempfile","w"))) {
 	fprintf(outfp,"%d\r",(int)(time(0)));
 	/* skip first line of mail file */
 	fgets(line,DNL,infp);
@@ -5912,7 +5915,7 @@ if (!strcmp(word[3],user->name)) {
 	write_user(user,"You cannot change your own password using the <user> option.\n");
 	return;
 	}
-if (u=get_user(word[3])) {
+if ((u=get_user(word[3]))) {
 	if (u->type==REMOTE_TYPE) {
 		write_user(user,"You cannot change the password of a user logged on remotely.\n");
 		return;
@@ -6224,7 +6227,7 @@ if (!strcmp(word[2],host)) {
 sprintf(filename,"%s/%s",DATAFILES,SITEBAN);
 
 /* See if ban already set for given site */
-if (fp=fopen(filename,"r")) {
+if ((fp=fopen(filename,"r"))) {
 	fscanf(fp,"%s",site);
 	while(!feof(fp)) {
 		if (!strcmp(site,word[2])) {
@@ -6267,7 +6270,7 @@ if (!strcmp(user->name,word[2])) {
 
 /* See if ban already set for given user */
 sprintf(filename,"%s/%s",DATAFILES,USERBAN);
-if (fp=fopen(filename,"r")) {
+if ((fp=fopen(filename,"r"))) {
 	fscanf(fp,"%s",name);
 	while(!feof(fp)) {
 		if (!strcmp(name,word[2])) {
@@ -6462,7 +6465,7 @@ if (word_count<2) {
 	write_user(user,"Usage: site <user>\n");  return;
 	}
 /* User currently logged in */
-if (u=get_user(word[1])) {
+if ((u=get_user(word[1]))) {
 	if (u->type==REMOTE_TYPE) sprintf(text,"%s is remotely connected from %s.\n",u->name,u->site);
 	else sprintf(text,"%s is logged in from %s:%d.\n",u->name,u->site,u->site_port);
 	write_user(user,text);
