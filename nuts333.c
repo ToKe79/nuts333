@@ -56,7 +56,6 @@ char *argv[];
 fd_set readmask;
 int i,len;
 char inpstr[ARR_SIZE];
-char *remove_first();
 UR_OBJECT user,next;
 NL_OBJECT nl;
 
@@ -266,7 +265,7 @@ int lsock,num;
 {
 UR_OBJECT user,create_user();
 NL_OBJECT create_netlink();
-char *get_ip_address(),site[80];
+char site[80];
 struct sockaddr_in acc_addr;
 int accept_sock;
 unsigned int size;
@@ -1086,8 +1085,6 @@ time(&boot_time);
 /*** Initialise the signal traps etc ***/
 void init_signals()
 {
-void sig_handler();
-
 signal(SIGTERM,sig_handler);
 signal(SIGSEGV,sig_handler);
 signal(SIGBUS,sig_handler);
@@ -1296,7 +1293,7 @@ UR_OBJECT user;
 char *str;
 {
 int buffpos,sock,i;
-char *start,buff[OUT_BUFF_SIZE],mesg[ARR_SIZE],*colour_com_strip();
+char *start,buff[OUT_BUFF_SIZE],mesg[ARR_SIZE];
 
 if (user==NULL) return;
 if (user->type==REMOTE_TYPE) {
@@ -2211,7 +2208,7 @@ int sock;
 char *filename;
 {
 int i,buffpos,num_chars,lines,retval,len;
-char buff[OUT_BUFF_SIZE],text2[83],*str,*colour_com_strip();
+char buff[OUT_BUFF_SIZE],text2[83],*str;
 FILE *fp;
 
 if (!(fp=fopen(filename,"r"))) {
@@ -2896,7 +2893,7 @@ void accept_server_connection(sock,acc_addr)
 int sock;
 struct sockaddr_in acc_addr;
 {
-NL_OBJECT nl,nl2,create_netlink();
+NL_OBJECT nl,nl2;
 RM_OBJECT rm;
 char site[81];
 
@@ -3082,7 +3079,7 @@ NL_OBJECT nl;
 char *name,*pass,*inpstr;
 int lev;
 {
-UR_OBJECT u,create_user();
+UR_OBJECT u;
 
 /* link for outgoing users only */
 if (nl->allow==OUT) {
