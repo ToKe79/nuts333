@@ -9,7 +9,7 @@ FLAGS="-lcrypt -Wall -Wextra -Wformat=2 -Wmisleading-indentation -Wpedantic"
 DEPS="ccache gcc"
 
 for d in ${DEPS} ; do
-  [ ! -x "$(which ccache 2>/dev/null)" ] && { echo "ccache: missing" ; exit 1 ; }
+  [ ! -x "$(which ${d}  2>/dev/null)" ] && { echo "${d}: missing" ; exit 1 ; }
 done
 
 ccache gcc ${FLAGS} ${SOURCE} -o ${BINARY}
