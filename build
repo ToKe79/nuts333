@@ -12,4 +12,4 @@ for d in ${DEPS} ; do
   [ ! -x "$(which ${d}  2>/dev/null)" ] && { echo "${d}: missing" ; exit 1 ; }
 done
 
-ccache gcc ${FLAGS} ${SOURCE} -o ${BINARY}
+ccache gcc ${SOURCE} -o ${BINARY} ${FLAGS}
