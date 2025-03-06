@@ -4827,7 +4827,10 @@ for(u=user_first;u!=NULL;u=u->next) {
 		}
 	if (people) {
 		if (u->afk) strcpy(idlestr," AFK");
-		else sprintf(idlestr,"%4d",idle);
+		else {
+			size_t result = snprintf(idlestr,sizeof(idlestr),"%4d",idle);
+			if (result>4) sprintf(idlestr,"%4d",9999);
+		}
 		if (u->type==REMOTE_TYPE) strcpy(sockstr," -");
 		else sprintf(sockstr,"%2d",u->socket);
 		sprintf(text,"%-15s :  %4s   %s    %s  %s %s %4d  %s  %s\n",u->name,level_name[u->level],sockstr,noyes1[u->ignall],noyes1[u->vis],idlestr,mins,portstr,u->site);
